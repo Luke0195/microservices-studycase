@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: postgresql://localhost:5432/nome_do_banco
+    driver-class-name: org.postgresql.Driver
+    username: root
+    password: root
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        hbm2ddl:
+          auto: update
