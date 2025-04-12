@@ -2,6 +2,7 @@ package br.com.lucassantos.orderservice.app.entity;
 
 import br.com.lucassantos.orderservice.app.entity.enums.OrderStatus;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import lombok.Builder;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
 import java.util.List;
 
@@ -33,6 +35,9 @@ public class Order implements Serializable {
     private LocalDateTime hourTime;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
-    @OneToMany(mappedBy = "order")
-    private List<Product> products;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
+    private List<Product> products = new ArrayList<>();
+
+
 }

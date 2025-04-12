@@ -1,5 +1,6 @@
 package br.com.lucassantos.orderservice.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,7 +24,8 @@ public class Product implements Serializable {
     private Integer quantity;
     private BigDecimal price;
     @ManyToOne
-    @JoinColumn(name="order_id")
+    @JsonBackReference
+    @JoinColumn(name = "order_id")
     private Order order;
 
 }
