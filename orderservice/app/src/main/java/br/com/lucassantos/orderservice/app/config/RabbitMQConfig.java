@@ -20,7 +20,7 @@ public class RabbitMQConfig {
     @Bean
     public Queue queue(){
         System.out.println("✅ Criando fila com nome: order.create");
-        return new Queue(queueProperties.name(), true);
+        return new Queue("order.create", true);
     }
 
     @Bean

@@ -31,6 +31,9 @@ class OrderServiceTest {
     @Mock
     private OrderRepository orderRepository;
 
+    @Mock
+    private RabbitService rabbitService;
+
     @Test
     @DisplayName(" add should return and OrderResponseDto when valid data is provided")
     void addShouldReturnsOrderResponseDtoWhenValidDataIsProvided(){
@@ -39,6 +42,7 @@ class OrderServiceTest {
                         .quantity(3)
                         .name("any_name")
                 .build()));
+
         Mockito.when(orderRepository.save(Mockito.any())).thenReturn(Order.builder()
                         .id(UUID.randomUUID())
                         .clientName("any_name")
@@ -47,6 +51,7 @@ class OrderServiceTest {
                         .status(OrderStatus.PENDING)
                         .enviado(true)
                 .build());
+        Mockito.doNothing().when(rabbitService).notitfyRabbitMq(Mockito.any());
         OrderResponseDto orderResponseDto = orderService.add(orderRequestDto);
         Assertions.assertNotNull(orderResponseDto.id());
         Assertions.assertNotNull(orderResponseDto.clientName());
