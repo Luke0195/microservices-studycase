@@ -4,9 +4,10 @@ import br.com.lucassantos.orderservice.app.entity.Order;
 
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public record ProductResponseDto(
-     Long id,
+     UUID id,
      String name,
      Integer quantity,
      BigDecimal price,

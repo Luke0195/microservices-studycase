@@ -7,7 +7,7 @@ import lombok.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.UUID;
-import br.com.lucassantos.orderservice.app.entity.Order;
+
 
 @AllArgsConstructor
 @NoArgsConstructor

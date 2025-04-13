@@ -38,6 +38,7 @@ public class Order implements Serializable {
     @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
     @JsonManagedReference
     private List<Product> products = new ArrayList<>();
+    private Boolean enviado = Boolean.FALSE;
 
 
 }

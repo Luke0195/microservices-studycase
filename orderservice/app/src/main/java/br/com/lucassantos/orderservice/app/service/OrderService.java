@@ -31,7 +31,7 @@ public class OrderService {
             products.add(Product.builder().price(product.getPrice()).order(order).price(product.getPrice()).name(product.getName()).quantity(product.getQuantity()).build());
         }
         order.setProducts(products);
-
+        order.setEnviado(true);
         order = orderRepository.save(order);
         return new OrderResponseDto(order.getId(), order.getClientName(), order.getHourTime(), order.getStatus(), order.getProducts());
     };
