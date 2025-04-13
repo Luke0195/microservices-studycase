@@ -20,6 +20,7 @@ import java.util.List;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final RabbitService rabbitService;
 
     @Transactional
     public OrderResponseDto add(OrderRequestDto orderRequestDto){
@@ -33,6 +34,8 @@ public class OrderService {
         order.setProducts(products);
         order.setEnviado(true);
         order = orderRepository.save(order);
-        return new OrderResponseDto(order.getId(), order.getClientName(), order.getHourTime(), order.getStatus(), order.getProducts());
+        OrderResponseDto orderResponseDto = new OrderResponseDto(order.getId(), order.getClientName(), order.getHourTime(), order.getStatus(), order.getProducts());
+        rabbitService.notitfyRabbitMq(orderRequestDto);
+        return orderResponseDto;
     };
 }

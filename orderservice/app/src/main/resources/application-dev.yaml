@@ -16,3 +16,13 @@ spring:
     console:
       enabled: true
       path: /h2-console
+
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+logging:
+  level:org.springframework.amqp: DEBUG
+  level.org.springframework.amqp.rabbit.core.RabbitTemplate: DEBUG
+
