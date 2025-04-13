@@ -1,5 +1,6 @@
 package br.com.lucassantos.orderservice.app.entity;
 
+import br.com.lucassantos.orderservice.app.dtos.request.OrderRequestDto;
 import br.com.lucassantos.orderservice.app.entity.enums.OrderStatus;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -39,6 +40,15 @@ public class Order implements Serializable {
     @JsonManagedReference
     private List<Product> products = new ArrayList<>();
     private Boolean enviado = Boolean.FALSE;
+
+
+    public static Order makeOrder(OrderRequestDto orderRequestDto){
+        return Order
+                .builder()
+                .clientName(orderRequestDto.clientName())
+                .products(orderRequestDto.products())
+                .build();
+    }
 
 
 }

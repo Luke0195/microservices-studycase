@@ -1,7 +1,6 @@
 package br.com.lucassantos.orderservice.app.dtos.request;
 
 import br.com.lucassantos.orderservice.app.entity.Product;
-import br.com.lucassantos.orderservice.app.entity.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

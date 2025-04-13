@@ -10,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -45,4 +44,30 @@ class OrderControllerTest {
         resultActions.andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
+    @DisplayName("POST - Should returns 400 if no products is provided")
+    @Test
+    void postShouldReturnsBadRequestIfNoProductIsProvided() throws Exception{
+        OrderRequestDto orderRequestDto = new OrderRequestDto("any_name", null);
+        String jsonBody = objectMapper.writeValueAsString(orderRequestDto);
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.post("/order")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(jsonBody)
+        );
+        resultActions.andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @DisplayName("POST - Should returns 201 when valid data is provided")
+    @Test
+    void postShouldReturnsCreatedWhenValidDataIsProvided() throws Exception{
+        Product product = Product.builder().id(UUID.randomUUID()).price(BigDecimal.valueOf(40.50)).name("any_product").quantity(30).build();
+        OrderRequestDto orderRequestDto = new OrderRequestDto("any_name", List.of(product));
+        String jsonBody = objectMapper.writeValueAsString(orderRequestDto);
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.post("/order")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(jsonBody)
+        );
+        resultActions.andExpect(MockMvcResultMatchers.status().isCreated());
+    }
 }
