@@ -42,15 +42,14 @@ class OrderServiceTest {
                         .quantity(3)
                         .name("any_name")
                 .build()));
-
-        Mockito.when(orderRepository.save(Mockito.any())).thenReturn(Order.builder()
-                        .id(UUID.randomUUID())
-                        .clientName("any_name")
-                        .products(orderRequestDto.products())
-                        .hourTime(LocalDateTime.now())
-                        .status(OrderStatus.PENDING)
-                        .enviado(true)
-                .build());
+        Order order = new Order();
+        order.setId(UUID.randomUUID());
+        order.setClientName("any_name");
+        order.setProducts(order.getProducts());
+        order.setHourTime(LocalDateTime.now());
+        order.setStatus(OrderStatus.PENDING);
+        order.setEnviado(true);
+        Mockito.when(orderRepository.save(Mockito.any())).thenReturn(order);
         Mockito.doNothing().when(rabbitService).notitfyRabbitMq(Mockito.any());
         OrderResponseDto orderResponseDto = orderService.add(orderRequestDto);
         Assertions.assertNotNull(orderResponseDto.id());

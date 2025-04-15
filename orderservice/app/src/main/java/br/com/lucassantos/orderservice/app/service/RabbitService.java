@@ -12,6 +12,6 @@ public class RabbitService {
     private RabbitTemplate rabbitTemplate;
 
     public void notitfyRabbitMq(OrderRequestDto orderRequestDto){
-        rabbitTemplate.convertAndSend("order-create", orderRequestDto);
+        rabbitTemplate.convertAndSend("order.create.exchange", "", orderRequestDto);
     }
 }

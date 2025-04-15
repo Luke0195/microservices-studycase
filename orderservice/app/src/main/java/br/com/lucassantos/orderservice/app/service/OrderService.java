@@ -24,9 +24,11 @@ public class OrderService {
 
     @Transactional
     public OrderResponseDto add(OrderRequestDto orderRequestDto){
-        Order order = Order.builder().clientName(orderRequestDto.clientName())
-                .hourTime(LocalDateTime.now()).status(OrderStatus.PENDING)
-                .build();
+        Order order = new Order();
+        order.setClientName(orderRequestDto.clientName());
+        order.setHourTime(LocalDateTime.now());
+        order.setStatus(OrderStatus.PENDING);
+
         List<Product> products = new ArrayList<>();
         for(Product product:orderRequestDto.products()){
             products.add(Product.builder().price(product.getPrice()).order(order).price(product.getPrice()).name(product.getName()).quantity(product.getQuantity()).build());

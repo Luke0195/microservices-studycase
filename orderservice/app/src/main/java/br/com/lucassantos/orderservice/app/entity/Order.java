@@ -22,7 +22,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
 @Entity
 @Table(name="tb_orders")
 public class Order implements Serializable {
@@ -43,11 +42,10 @@ public class Order implements Serializable {
 
 
     public static Order makeOrder(OrderRequestDto orderRequestDto){
-        return Order
-                .builder()
-                .clientName(orderRequestDto.clientName())
-                .products(orderRequestDto.products())
-                .build();
+        Order order = new  Order();
+        order.setClientName(orderRequestDto.clientName());
+        order.setProducts(orderRequestDto.products());
+        return order;
     }
 
 
