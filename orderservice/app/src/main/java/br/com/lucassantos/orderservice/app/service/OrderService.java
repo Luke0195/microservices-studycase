@@ -37,7 +37,7 @@ public class OrderService {
         order.setEnviado(true);
         order = orderRepository.save(order);
         OrderResponseDto orderResponseDto = new OrderResponseDto(order.getId(), order.getClientName(), order.getHourTime(), order.getStatus(), order.getProducts());
-        rabbitService.notitfyRabbitMq(orderRequestDto);
+        rabbitService.notitfyRabbitMq(orderResponseDto);
         return orderResponseDto;
     };
 }
