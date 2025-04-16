@@ -20,12 +20,14 @@ public class OrderListener {
     @RabbitListener(queues = "order.create")
     public void getOrder(String message) {
         try{
-            OrderDto orderDto = objectMapper.readValue(message, OrderDto.class);
-            orderValidator.validate(orderDto);
+            orderValidator.validate(message);
             System.out.println("Recendo a mensagem");
             System.out.println(message);
         }catch (Exception e){
             log.info(e.getMessage());
         }
     }
+
+
+
 }
